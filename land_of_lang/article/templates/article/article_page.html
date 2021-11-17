@@ -1,0 +1,43 @@
+{%extends 'base.html' %}
+
+{% block title %}
+        {{ title}}
+{% endblock title %}
+
+{% block head %}
+    {{ title }} || {{ block.super }}
+{% endblock head %}
+
+{% block sidebar %}
+    {% include 'inc/_sidebar.html' %}
+{% endblock sidebar %}
+
+{% block content%}
+        <div class="col-md-9">
+            {%for item in post_k%}
+            <div class="card mb-3">
+              <div class="card-header">
+                  Category: <a href="{{ item.category.get_absolute_url }}">{{ item.category}}</a>
+              </div>
+              <div class="card-body">
+                  <div class="media">
+                      <div class="media-body">
+                      {% if item.photo %}
+                        <img src="{{ item.photo.url }}" alt="" width="450" class="mr-3">
+                      {% else %}
+                        <img src="https://picsum.photos/id/1084/450/300?grayscale" alt="" class="mr-3">
+                      {% endif %}
+                          <h5 class="card-title">{{item.title}}</h5>
+                          <p class="card-text">{{item.content|linebreaks|truncatewords:55}}</p>
+                          <a href="{{ item.get_absolute_url }}" class="btn btn-primary">Read more</a>
+                      </div>
+                  </div>
+
+              </div>
+              <div class="card-footer text-muted">
+                 Date of Publication: {{item.created_date |timesince}}
+              </div>
+            </div>
+            {%endfor%}
+        </div>
+{% endblock content%}

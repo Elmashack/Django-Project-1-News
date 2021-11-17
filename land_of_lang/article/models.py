@@ -9,7 +9,7 @@ class Article(models.Model):
     updated_date = models.DateTimeField(auto_now=True, verbose_name='Last update')
     photo = models.ImageField(upload_to="img/%Y/%m/", verbose_name='Image', blank=True)
     is_published = models.BooleanField(default=True, verbose_name='Posted')
-    category = models.ForeignKey('Category', on_delete=models.PROTECT, null=True, verbose_name="Category")
+    category = models.ForeignKey('Category', on_delete=models.PROTECT, verbose_name="Category")
 
     def get_absolute_url(self):
         return reverse('post', kwargs={"post_id": self.pk})
