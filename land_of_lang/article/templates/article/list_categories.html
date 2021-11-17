@@ -1,0 +1,10 @@
+<div class="list-group">
+    {{ arg1 }}
+        {% for cat in cats %}
+        {% if cur_cat == cat.pk%}
+            <a href="{{ cat.get_absolute_url }}" class="list-group-item list-group-item-action active" aria-current="true">{{cat.title}}</a>
+        {% else %}
+            <a href="{{ cat.get_absolute_url }}" class="list-group-item list-group-item-action" aria-current="true">{{cat.title}}</a>
+        {%endif%}
+        {%endfor%}
+</div>

@@ -7,22 +7,17 @@
 {% block head %}
     {{ title }} || {{ block.super }}
 {% endblock head %}
+
 {% block sidebar %}
-        <div class="col-md-3">
-            <div class="list-group">
-                {% for cat in category %}
-              <a href="{% url 'category' cat.pk %}" class="list-group-item list-group-item-action active" aria-current="true">{{cat.title}}</a>
-              <a href="#" class="list-group-item list-group-item-action">A second link item</a>
-                {%endfor%}
-            </div>
-        </div>
+    {% include 'inc/_sidebar.html' %}
 {% endblock sidebar %}
+
 {% block content%}
         <div class="col-md-9">
             {%for item in post_k%}
             <div class="card mb-3">
               <div class="card-header">
-                  Category: <a href="{% url 'category' item.category.pk%}">{{ item.category}}</a>
+                  Category: <a href="{{ item.category.get_absolute_url }}">{{ item.category}}</a>
               </div>
               <div class="card-body">
                   <div class="media">
@@ -34,7 +29,7 @@
                       {% endif %}
                           <h5 class="card-title">{{item.title}}</h5>
                           <p class="card-text">{{item.content|linebreaks|truncatewords:55}}</p>
-                          <a href="#" class="btn btn-primary">Read more</a>
+                          <a href="{{ item.get_absolute_url }}" class="btn btn-primary">Read more</a>
                       </div>
                   </div>
 

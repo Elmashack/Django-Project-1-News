@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}
+        {{ cur_cat.title}}
+{% endblock title %}
+
+{% block sidebar %}
+    {% include 'inc/_sidebar.html' %}
+{% endblock sidebar %}
+
+
+{% block content%}
+ <h1>Add new post</h1>
+
+<form action="{% url 'add_post' %}" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+<!--    {% for field in form %}-->
+<!--      <div class="form-group mb-3">-->
+<!--          {{field.label_tag}}-->
+<!--          {{field}}-->
+<!--          <div class="invalid-feedback">-->
+<!--              {{form.error}}-->
+<!--          </div>-->
+<!--    </div>-->
+<!--    {%endfor%}-->
+    <button type="submit"  class="btn btn-primary btn-block">Add post</button>
+
+</form>
+{% endblock content%}

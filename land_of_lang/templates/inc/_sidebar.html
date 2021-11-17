@@ -1,0 +1,14 @@
+{% load article_tags %}
+<!--{% get_categories as cats%}-->
+<!--    <div class="list-group">-->
+<!--        {% for cat in cats %}-->
+<!--        {% if cur_cat == cat%}-->
+<!--            <a href="{% url 'category' cat.pk %}" class="list-group-item list-group-item-action active" aria-current="true">{{cat.title}}</a>-->
+<!--        {% else %}-->
+<!--            <a href="{% url 'category' cat.pk %}" class="list-group-item list-group-item-action" aria-current="true">{{cat.title}}</a>-->
+<!--        {%endif%}-->
+<!--        {%endfor%}-->
+<!--</div>-->
+
+<!--<br>-->
+    {% display_categories  arg1="Good morning"%}
