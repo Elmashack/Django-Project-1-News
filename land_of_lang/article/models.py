@@ -10,9 +10,10 @@ class Article(models.Model):
     photo = models.ImageField(upload_to="img/%Y/%m/", verbose_name='Image', blank=True)
     is_published = models.BooleanField(default=True, verbose_name='Posted')
     category = models.ForeignKey('Category', on_delete=models.PROTECT, verbose_name="Category")
+    views = models.IntegerField(default=0)
 
     def get_absolute_url(self):
-        return reverse('post', kwargs={"post_id": self.pk})
+        return reverse('post', kwargs={"pk": self.pk})
 
     def __str__(self):
         return self.title

@@ -2,9 +2,15 @@
     {{ arg1 }}
         {% for cat in cats %}
         {% if cur_cat == cat.pk%}
-            <a href="{{ cat.get_absolute_url }}" class="list-group-item list-group-item-action active" aria-current="true">{{cat.title}}</a>
+            <a
+                href="{{ cat.get_absolute_url }}" class="list-group-item list-group-item-action active" aria-current="true">{{cat.title}}
+                <span class="badge bg-primary rounded-pill">{{cat.cnt}}</span>
+            </a>
         {% else %}
-            <a href="{{ cat.get_absolute_url }}" class="list-group-item list-group-item-action" aria-current="true">{{cat.title}}</a>
+            <a
+                href="{{ cat.get_absolute_url }}" class="list-group-item list-group-item-action" aria-current="true">{{cat.title}}
+                <span class="badge bg-primary rounded-pill">{{cat.cnt}}</span>
+            </a>
         {%endif%}
         {%endfor%}
 </div>
