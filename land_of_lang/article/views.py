@@ -19,7 +19,7 @@ class HomePage(ListView):
         return context
 
     def get_queryset(self):
-        return Article.objects.filter(is_published=True)
+        return Article.objects.filter(is_published=True).select_related('category')
 
 class ArticleByCat(ListView):
     model = Article
@@ -32,7 +32,7 @@ class ArticleByCat(ListView):
         return context
 
     def get_queryset(self):
-        return Article.objects.filter(category_id=self.kwargs['cat_id'], is_published=True)
+        return Article.objects.filter(category_id=self.kwargs['cat_id'], is_published=True).select_related('category')
 
 class ViewPost(DetailView):
     model = Article
