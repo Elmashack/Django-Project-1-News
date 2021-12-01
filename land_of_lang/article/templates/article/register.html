@@ -1,0 +1,22 @@
+{%extends 'base.html' %}
+
+{% block title %}
+        Register
+{% endblock title %}
+
+{% block head %}
+    Register || {{ block.super }}
+{% endblock head %}
+
+{% block sidebar %}
+    {% include 'inc/_sidebar.html' %}
+{% endblock sidebar %}
+
+{% block content%}
+    <form method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+
+        <button type="submit"  class="btn btn-primary btn-block">Sing up</button>
+    </form>
+{% endblock content%}

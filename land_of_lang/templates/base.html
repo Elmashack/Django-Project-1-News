@@ -1,5 +1,5 @@
-<!doctype html>
 {% load static %}
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -17,6 +17,19 @@
             {% block sidebar%} sidebar{% endblock sidebar%}
         </div>
         <div class="col-md-9 mt-3">
+            {% if messages %}
+                {% for msg in messages %}
+                    {% if msg.tags == 'error' %}
+                         <div class="alert alert-danger" role="alert">
+                          {{msg}}
+                        </div>
+                    {%else%}
+                        <div class="alert alert-{{msg.tags}}" role="alert">
+                            {{msg}}
+                        </div>
+                    {%endif%}
+                {% endfor %}
+            {%endif%}
             {% block content%}
             Content
             {% endblock content%}
@@ -52,7 +65,6 @@
 
     </div>
 </div>
-
 
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>

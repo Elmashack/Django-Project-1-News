@@ -1,10 +1,21 @@
+from django import forms
 from django.contrib import admin
 from django.utils.safestring import mark_safe
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 from .models import Article, Category
 
 
+class PostAdminForm(forms.ModelForm):
+    content = forms.CharField(widget=CKEditorUploadingWidget())
+
+    class Meta:
+        model = Article
+        fields = '__all__'
+
+
 class ArticleAdmin(admin.ModelAdmin):
+    form = PostAdminForm
     list_display = ('id', 'title', 'category', 'created_date', 'updated_date', 'is_published', 'get_photo')
     list_display_links = ('id', 'title')
     search_fields = ('title', 'content')

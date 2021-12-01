@@ -1,12 +1,47 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
+from django.contrib.auth import login, logout
 from django.core.paginator import Paginator
+from django.core.mail import send_mail
+from django.urls import reverse_lazy
+from django.contrib import messages
 
-from .utils import MyMixin
+from .forms import ArticleForm, RegisterForm, UserLoginForm, ContactForm
 from .models import Article, Category
-from .forms import ArticleForm
+from .utils import MyMixin
+
+
+def register(request):
+
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "You successfully signed up")
+            return redirect('login')
+        else:
+            messages.error(request, "Registration failed")
+    else:
+        form = RegisterForm()
+    return render(request, 'article/register.html', {'form': form})
+
+
+def user_login(request):
+    if request.method == 'POST':
+        form = UserLoginForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('home')
+    else:
+        form = UserLoginForm()
+    return render(request, 'article/login.html', {'form': form})
+
+def user_logout(request):
+    logout(request)
+    return redirect('login')
+
 
 def test(request):
     objects = ['john1', 'paul2', 'george3', 'ringo4', 'john5', 'paul6', 'george7']
@@ -83,7 +118,20 @@ class AddPost(LoginRequiredMixin, CreateView):
 
 
 def about(request):
-    return render(request, 'article/about.html')
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            mail = send_mail(form.cleaned_data['subject'], form.cleaned_data['body'],  'elmdjango@yandex.ru', ['elmoonmedov@yandex.ru'], fail_silently=True)
+            if mail:
+                messages.success(request, "Mail is sent!")
+                return redirect('about')
+            else:
+                messages.error(request, "Failed to send")
+        else:
+            messages.error(request, "Validation error")
+    else:
+        form = ContactForm()
+    return render(request, 'article/about.html', {'form': form})
 
 # def add_post(request):
 #     if request.method == "POST":
